@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Startup Correspondent - Orientation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, #6366f1 0%, transparent 70%);
+            opacity: 0.05;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(30px, -30px) rotate(180deg); }
+        }
+        
+        .content {
+            max-width: 1000px;
+            width: 100%;
+            z-index: 1;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #ffffff;
+        }
+        
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #8b5cf6;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: #a1a1aa;
+            margin-bottom: 3rem;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(139, 92, 246, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.2);
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #6366f1, #8b5cf6);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background: #8b5cf6;
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin: 0.2rem;
+        }
+        
+        .tips {
+            background: rgba(139, 92, 246, 0.1);
+            border-left: 4px solid #8b5cf6;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .process-flow {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .process-step {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        
+        .process-step:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: #8b5cf6;
+        }
+        
+        .number-circle {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .process-step h3 {
+            margin-bottom: 0.5rem;
+            min-height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .process-step p {
+            font-size: 0.95rem;
+            color: #a1a1aa;
+            line-height: 1.4;
+        }
+        
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        li {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+        
+        li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #8b5cf6;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.05);
+            margin-top: 4rem;
+            border-radius: 16px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.5rem; }
+            .process-step:not(:last-child)::after { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Slide 1: Title -->
+    <section class="slide">
+        <div class="content">
+            <div style="font-size: 2.5rem; font-weight: 800; color: #6366f1; margin-bottom: 3rem; text-align: left;">LetiTu</div>
+            <h1>Student Startup Correspondent</h1>
+            <p class="subtitle">LetiTu Startup Correspondent Program Orientation</p>
+            <div class="card" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.15) 100%); border: 2px solid rgba(139, 92, 246, 0.3); position: relative; overflow: hidden;">
+                <div style="position: absolute; top: -50%; right: -10%; width: 200px; height: 200px; background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%); border-radius: 50%;"></div>
+                <p style="font-size: 1.3rem; line-height: 2; font-weight: 500; position: relative; z-index: 1;">
+                    Discover and share <span style="background: linear-gradient(to right, #6366f1, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700;">startup stories</span><br>
+                    <span style="font-size: 1.5rem; font-weight: 700; color: #8b5cf6;">The beginning of an extraordinary journey</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 2: Project Overview -->
+    <section class="slide">
+        <div class="content">
+            <h2>🚀 Project Introduction</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="icon">📝</div>
+                    <h3>Mission</h3>
+                    <p>Students directly interview startups and write articles to uncover innovative stories</p>
+                </div>
+                <div class="card">
+                    <div class="icon">🎯</div>
+                    <h3>Objective</h3>
+                    <p>Develop tech journalism skills through hands-on experience and understand the startup ecosystem</p>
+                </div>
+                <div class="card">
+                    <div class="icon">🏆</div>
+                    <h3>Benefits</h3>
+                    <p>Written articles will be published on official channels, with special awards for outstanding correspondents</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3: Journalist Mindset -->
+    <section class="slide">
+        <div class="content">
+            <h2>💡 Startup Journalist Mindset</h2>
+            
+            <div class="card">
+                <h3>Curiosity & Exploration</h3>
+                <ul>
+                    <li>Ask 'Why' questions that go beyond simple information delivery</li>
+                    <li>Understand the real problems startups are trying to solve</li>
+                    <li>Find the essence within trends</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>Objectivity & Balance</h3>
+                <ul>
+                    <li>Accurate information delivery through fact-checking</li>
+                    <li>View stories from multiple perspectives</li>
+                    <li>Balance critical thinking with constructive feedback</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>Storytelling Ability</h3>
+                <ul>
+                    <li>Explain complex technology in simple terms</li>
+                    <li>Create compelling narratives that capture readers' interest</li>
+                    <li>Harmonize data with human stories</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 4: Activity Process -->
+    <section class="slide">
+        <div class="content">
+            <h2>📋 Article Writing Process</h2>
+            
+            <div class="process-flow">
+                <div class="process-step">
+                    <div class="number-circle">1</div>
+                    <h3>Company Selection</h3>
+                    <p>Research and propose<br>interesting startups</p>
+                </div>
+                <div class="process-step">
+                    <div class="number-circle">2</div>
+                    <h3>Pre-Interview Research</h3>
+                    <p>Company information<br>and market analysis</p>
+                </div>
+                <div class="process-step">
+                    <div class="number-circle">3</div>
+                    <h3>Interview</h3>
+                    <p>In-depth conversations<br>with founders/team</p>
+                </div>
+                <div class="process-step">
+                    <div class="number-circle">4</div>
+                    <h3>Article Writing</h3>
+                    <p>Story structuring<br>and draft writing</p>
+                </div>
+                <div class="process-step">
+                    <div class="number-circle">5</div>
+                    <h3>Feedback</h3>
+                    <p>Mentor review<br>and revisions</p>
+                </div>
+            </div>
+            
+            <div class="tips">
+                <p><strong>💡 Pro Tip:</strong> Allocate sufficient time for each stage. Pre-interview research is especially crucial as it forms the foundation of a good interview!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 5: Interview Guide -->
+    <section class="slide">
+        <div class="content">
+            <h2>🎤 Effective Interview Strategies</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>Before the Interview</h3>
+                    <ul>
+                        <li>Actually use the company's product/service</li>
+                        <li>Check recent news and funding announcements</li>
+                        <li>Analyze competitors and market trends</li>
+                        <li>Prepare a question list (15-20 questions)</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3>During the Interview</h3>
+                    <ul>
+                        <li>Create a comfortable atmosphere with ice-breaking</li>
+                        <li>Start with open-ended questions</li>
+                        <li>Request specific examples and numbers</li>
+                        <li>Flexibly respond to unexpected answers</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3>After the Interview</h3>
+                    <ul>
+                        <li>Send a thank-you email within 24 hours</li>
+                        <li>Organize recordings/notes and extract key points</li>
+                        <li>Prepare additional questions and follow-up</li>
+                        <li>Begin writing the article draft</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 6: Writing Tips -->
+    <section class="slide">
+        <div class="content">
+            <h2>✍️ How to Write Compelling Articles</h2>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>Headlines</h3>
+                    <p>Titles that capture readers' attention</p>
+                    <div class="tips" style="margin-top: 1rem;">
+                        <p>✓ Core value in one sentence<br>
+                        ✓ Use numbers or specific achievements<br>
+                        ✓ Question format to spark curiosity</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Lead Paragraph</h3>
+                    <p>The introduction that determines first impressions</p>
+                    <div class="tips" style="margin-top: 1rem;">
+                        <p>✓ 5W1H summary<br>
+                        ✓ Impactful statistics or facts<br>
+                        ✓ Present the story's core</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Body Structure</h3>
+                    <p>Logical and readable story development</p>
+                    <div class="tips" style="margin-top: 1rem;">
+                        <p>✓ Use inverted pyramid structure<br>
+                        ✓ One paragraph = one idea<br>
+                        ✓ Simplify technical terms</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" style="background: rgba(99, 102, 241, 0.1);">
+                <h3>🌟 Remember!</h3>
+                <p>Good articles go beyond information delivery to provide insights to readers. 
+                Always consider 'Why is this startup important?' and 'What value does it provide to readers?'</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 7: Ethics and Guidelines -->
+    <section class="slide">
+        <div class="content">
+            <h2>⚖️ Journalism Ethics & Guidelines</h2>
+            
+            <div class="card">
+                <h3>Essential Guidelines</h3>
+                <ul>
+                    <li><span class="highlight">Accuracy</span> All information must be fact-checked before publication</li>
+                    <li><span class="highlight">Fairness</span> Maintain objective perspective without bias toward specific companies</li>
+                    <li><span class="highlight">Transparency</span> Disclose any conflicts of interest</li>
+                    <li><span class="highlight">Confidentiality</span> Never publish off-the-record content</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>Common Pitfalls to Avoid</h3>
+                <ul>
+                    <li>Avoid writing promotional articles</li>
+                    <li>Refrain from competitor bashing or unfounded criticism</li>
+                    <li>Don't use copyrighted images/materials without permission</li>
+                    <li>Don't distort or exaggerate interviewees' statements</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 8: Activity Schedule -->
+    <section class="slide">
+        <div class="content">
+            <h2>📅 Activity Schedule & Milestones</h2>
+            
+            <div class="card" style="background: rgba(99, 102, 241, 0.1); margin-bottom: 2rem;">
+                <p><strong>📌 Note:</strong> The schedule below is an example, and timelines can be flexibly adjusted according to individual correspondents' circumstances.</p>
+            </div>
+            
+            <div class="card">
+                <h3>Sample Timeline</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>Weeks 1-2</h4>
+                        <p>Orientation and basic training<br>
+                        Company selection and proposal writing</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Weeks 3-4</h4>
+                        <p>Company research and interview preparation<br>
+                        Conducting interviews and collecting materials</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Weeks 5-6</h4>
+                        <p>Writing article drafts<br>
+                        Mentor feedback and revisions</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Weeks 7-8</h4>
+                        <p>Final article submission<br>
+                        Publication and performance sharing</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tips">
+                <p><strong>📌 Progress Sharing Sessions:</strong> Regular progress sharing sessions are held weekly (optional participation). Share experiences with other correspondents and exchange feedback in our group chat!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 9: Success Tips -->
+    <section class="slide">
+        <div class="content">
+            <h2>🌟 Tips for Successful Correspondent Activities</h2>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>Networking</h3>
+                    <ul>
+                        <li>Share information with other correspondents</li>
+                        <li>Participate in startup events</li>
+                        <li>Maintain LinkedIn profile</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Continuous Learning</h3>
+                    <ul>
+                        <li>Daily tech news updates</li>
+                        <li>Read industry reports</li>
+                        <li>Keep up with new technology trends</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Portfolio Building</h3>
+                    <ul>
+                        <li>Archive written articles</li>
+                        <li>Maintain personal blog</li>
+                        <li>Utilize social media</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card" style="background: rgba(139, 92, 246, 0.1); margin-top: 2rem;">
+                <h3>💬 The Essence of Journalism</h3>
+                <p style="font-style: italic; line-height: 1.8; font-size: 1.1rem;">
+                    "Journalism is printing what someone else does not want printed;<br>
+                    everything else is public relations."
+                </p>
+                <p style="text-align: right; margin-top: 1rem; color: #a1a1aa;">- George Orwell</p>
+                <p style="margin-top: 1.5rem; font-style: normal;">
+                    Good articles uncover hidden truths beneath the surface and provide readers with new perspectives.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 10: Contact & Closing -->
+    <section class="slide">
+        <div class="content">
+            <div class="footer">
+                <h2>Your Journey Begins Now!</h2>
+                <p style="font-size: 1.3rem; margin: 2rem 0; line-height: 1.8;">
+                    You are now part of the<br>
+                    <span class="highlight">LetiTu Startup Correspondent Program</span><br>
+                    ready to tell the stories of the startup ecosystem.
+                </p>
+                
+                <div class="card" style="max-width: 600px; margin: 2rem auto;">
+                    <h3>📞 Contact & Support</h3>
+                    <p style="margin-bottom: 1rem;">If you have any questions or need assistance, please don't hesitate to reach out!</p>
+                    <p>
+                        <strong>Email:</strong> counseling@letitu.io<br>
+                        <strong>Phone:</strong> +82-10-5253-9660
+                    </p>
+                </div>
+                
+                <p style="margin-top: 3rem; font-size: 1.1rem;">
+                    <strong>Let's make it happen! We look forward to your amazing stories ✨</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
